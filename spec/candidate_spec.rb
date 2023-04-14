@@ -13,4 +13,15 @@ RSpec.describe Candidate do
     expect(diana.party).to eq(:democrat)
     expect(diana.votes).to eq(0)
   end
+
+  it "can vote for a candidate" do
+    diana = Candidate.new({name: "Diana D", party: :democrat})
+    expect(diana.votes).to eq(0)
+    diana.vote_for!
+    diana.vote_for!
+    diana.vote_for!
+    expect(diana.votes).to eq(3)
+    diana.vote_for!
+    expect(diana.votes).to eq(4)
+  end
 end
