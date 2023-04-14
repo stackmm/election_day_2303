@@ -23,5 +23,4 @@ class Election
     end
     votes
   end
-
 end
