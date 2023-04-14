@@ -10,4 +10,10 @@ class Election
     @races << race
   end
 
+  def candidates
+    @races.map do |race|
+      race.candidates
+    end.flatten
+  end
+
 end
