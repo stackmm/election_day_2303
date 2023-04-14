@@ -39,4 +39,19 @@ RSpec.describe Race do
     race.close!
     expect(race.open?).to be false
   end
+
+  it "can determin the winner of a race #winner" do
+    race = Race.new("Texas Governor")
+    candidate1 = race.register_candidate!({name: "Diana D", party: :democrat})
+    candidate2 = race.register_candidate!({name: "Roberto R", party: :republican})
+    candidate1.vote_for!
+    candidate1.vote_for!
+    candidate1.vote_for!
+    candidate1.vote_for!
+    candidate2.vote_for!
+    candidate2.vote_for!
+    expect(race.winner).to be false
+    race.close!
+    expect(race.winner).to eq(candidate1)
+  end
 end
