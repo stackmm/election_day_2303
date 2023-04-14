@@ -40,7 +40,20 @@ RSpec.describe Race do
     expect(race.open?).to be false
   end
 
-  it "can determin the winner of a race #winner" do
+  it "can determine which candidate has received the most votes #most_votes" do
+    race = Race.new("Texas Governor")
+    candidate1 = race.register_candidate!({name: "Diana D", party: :democrat})
+    candidate2 = race.register_candidate!({name: "Roberto R", party: :republican})
+    candidate1.vote_for!
+    candidate1.vote_for!
+    candidate1.vote_for!
+    candidate1.vote_for!
+    candidate2.vote_for!
+    candidate2.vote_for!
+    expect(race.most_votes).to eq(candidate1)
+  end
+
+  it "can determine the winner of a race #winner" do
     race = Race.new("Texas Governor")
     candidate1 = race.register_candidate!({name: "Diana D", party: :democrat})
     candidate2 = race.register_candidate!({name: "Roberto R", party: :republican})
@@ -53,5 +66,28 @@ RSpec.describe Race do
     expect(race.winner).to be false
     race.close!
     expect(race.winner).to eq(candidate1)
+  end
+
+  it "can determine if there is a tie #tie?" do
+    race = Race.new("Texas Governor")
+    candidate1 = race.register_candidate!({name: "Diana D", party: :democrat})
+    candidate2 = race.register_candidate!({name: "Roberto R", party: :republican})
+    candidate1.vote_for!
+    candidate1.vote_for!
+    candidate1.vote_for!
+    candidate2.vote_for!
+    candidate2.vote_for!
+    candidate2.vote_for!
+    expect(race.tie?).to be true
+
+    race2 = Race.new("Texas Governor")
+    candidate3 = race2.register_candidate!({name: "Diana D", party: :democrat})
+    candidate4 = race2.register_candidate!({name: "Roberto R", party: :republican})
+    candidate3.vote_for!
+    candidate3.vote_for!
+    candidate4.vote_for!
+    expect(race2.tie?).to be false
+    candidate4.vote_for!
+    expect(race2.tie?).to be true
   end
 end
