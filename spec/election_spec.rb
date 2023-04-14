@@ -15,7 +15,7 @@ RSpec.describe Election do
     expect(election1.races).to eq([])
   end
 
-  it "can add races to an election" do
+  it "can add races to an election #add_race" do
     election1 = Election.new("2024")
     expect(election1.races).to eq([])
 
@@ -26,7 +26,7 @@ RSpec.describe Election do
     expect(election1.races).to eq([race1, race2])
   end
 
-  it "can list all the candidates in an election" do
+  it "can list all the candidates in an election #candidates" do
     election1 = Election.new("2024")
     race1 = Race.new("Presidency")
     race2 = Race.new("Senator")
@@ -39,7 +39,7 @@ RSpec.describe Election do
     expect(election1.candidates).to eq([candidate1, candidate2, candidate3, candidate4])
   end
 
-  it "can list all the candidates in an election with their vote counts" do
+  it "can list all the candidates in an election with their vote counts #vote_counts" do
     election1 = Election.new("2024")
     race1 = Race.new("Presidency")
     race2 = Race.new("Senator")
