@@ -21,20 +21,26 @@ class Race
     @open = false
   end
 
+  def most_votes
+    @candidates.max_by do |candidate|
+      candidate.votes
+    end
+  end
+
   def winner
     return false if open?
+    most_votes
+  end 
 
-    # iterates through all candidates and determines the highest # of votes received
-    most_votes = @candidates.map do |candidate|
-      candidate.votes
-    end.max
+  def tie?
+    max_num_of_votes = most_votes.votes
 
-    # iterates through candidates and determines which candidate had the highest #
-    winning_candidate = @candidates.find do |candidate|
-      candidate.votes == most_votes
+    num_candidate_with_max = @candidates.count do |candidate|
+      candidate.votes == max_num_of_votes
     end
 
-    winning_candidate
+    num_candidate_with_max > 1
   end
+
 
 end
