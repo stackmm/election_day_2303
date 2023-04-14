@@ -14,7 +14,7 @@ RSpec.describe Race do
     expect(race.candidates).to eq([])
   end
 
-  it "can register a candidate" do
+  it "can register a candidate #register_candidate!" do
     race = Race.new("Texas Governor")
     expect(race.candidates).to eq([])
 
@@ -26,5 +26,17 @@ RSpec.describe Race do
 
     candidate2 = race.register_candidate!({name: "Roberto R", party: :republican})
     expect(race.candidates).to eq([candidate1, candidate2])
+  end
+
+  it "can determine if a race is open or not #open?" do
+    race = Race.new("Texas Governor")
+    expect(race.open?).to be true
+  end
+
+  it "can close a race #close!" do
+    race = Race.new("Texas Governor")
+    expect(race.open?).to be true
+    race.close!
+    expect(race.open?).to be false
   end
 end
