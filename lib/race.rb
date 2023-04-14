@@ -4,7 +4,7 @@ class Race
   def initialize(office)
     @office = office
     @candidates = []
-    @is_open = true
+    @open = true
   end
 
   def register_candidate!(attributes)
@@ -14,11 +14,27 @@ class Race
   end
 
   def open?
-    @is_open
+    @open
   end
 
   def close!
-    @is_open = false
+    @open = false
+  end
+
+  def winner
+    return false if open?
+
+    # iterates through all candidates and determines the highest # of votes received
+    most_votes = @candidates.map do |candidate|
+      candidate.votes
+    end.max
+
+    # iterates through candidates and determines which candidate had the highest #
+    winning_candidate = @candidates.find do |candidate|
+      candidate.votes == most_votes
+    end
+
+    winning_candidate
   end
 
 end
